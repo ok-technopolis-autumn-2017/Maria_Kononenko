@@ -1,0 +1,86 @@
+.body-style{
+    background-color: lightgray;
+    margin: auto;
+}
+
+.title{
+    font-size: 80px;
+    font-family: "Times New Roman";
+    font-weight: normal;
+    text-transform: lowercase;
+    text-align: center;
+    color: darkgray;
+    font-style: normal;
+    margin: auto;
+}
+
+.container{
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightgray;
+    width:600px;
+    height:250px;
+    padding:0px;
+    margin: auto;
+    background-color: white;
+    box-shadow:5px 5px 5px 5px #199
+}
+
+.main-row{
+    padding: 1px;
+    margin: auto;
+    width: inherit;
+    height: 30px;
+    border-width: inherit;
+    border-style: inherit;
+    border-color: inherit;
+
+}
+
+.do{
+    background-image: url("/images/arrow.jpg");
+    background-size: 100px 40px ;
+    padding: 1px;
+    width: 40px;
+
+
+
+}
+
+.add-row{
+    padding: inherit;
+    width: 530px;
+    font-style: normal;
+    color: lightgray;
+    margin: auto;
+    border-bottom-style: none;
+
+
+}
+
+.rows{
+    padding: 5px;
+    font-style: normal;
+    color: darkgray;
+}
+
+.row{
+
+}
+
+.done{
+
+}
+
+.notdone{
+
+}
+
+.todo-item-style{
+
+}
+
+.actions{
+    padding: 5px;
+
+}
