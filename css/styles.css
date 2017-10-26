@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200');
+
+.body-grid{
+    margin: 0px;
+    display: grid;
+    grid-template-areas: ". todos-header ."
+                         ". todos-container .";
+    font-size: 30px;
+}
+
+.todos-container,
+.todos-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+}
+
+.todos-add,
+.todos-actions-bar,
+.todos-item{
+    display: flex;
+    flex-direction: row;
+}
+
+.todos-header{
+    grid-area: todos-header;
+    text-align: center;
+    background-color: rgba(137,255,71,0.21);
+}
+
+.todos-title{
+    background-color: rgba(243,255,57,0.21);
+    display: inline-block;
+    line-height: 1em;
+    margin: 0px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 3em;
+    color: rgba(255,121,164,0.21);
+}
+
+.todos-container{
+    grid-area: todos-container;
+    border: 1px solid rgba(0,0,0,0.08);
+    background-color: rgba(72,252,255,0.21);
+}
+
+/*
+ * Add an item
+ */
+.todos-add{
+    background-color: rgba(123,102,255,0.3);
+    border: 1px solid rgba(0,0,0,0.08);
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+}
+
+.todos-add_select-all{
+    border: none;
+    width: 5%;
+    display: flex;
+    background-color: rgba(0,0,0,0.08);
+}
+
+.todos-add_select-all:hover{
+    background-color: rgba(0,0,0,0.2);
+}
+
+.todos-add_new-item{
+    background-color: rgba(68,255,42,0.3);
+    width: 95%;
+    border: none;
+}
+
+/*
+ * List
+ */
+.todos-list{
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+.todos-item{
+    background-color: rgba(0,0,0,0.02);
+    border: 1px solid rgba(0,0,0,0.08);
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+}
+
+.todos-item_undone-mark,
+.todos-item_done-mark{
+    width: 5%;
+    margin: 0px;
+
+}
+
+.todos-item_name{
+    resize: none;
+    border: none;
+    outline: none;
+    margin: 0px;
+    height: 1.5em;
+    background-color: rgba(239,195,255,0.35);
+    font-size: 0.8em;
+    font-family: 'Source Sans Pro', sans-serif;
+    width: 90%;
+
+}
+
+.todos-item_done-mark + .todos-item_name{
+    text-decoration:line-through;
+}
+
+.todos-item_delete{
+    display: flex;
+    border: none;
+    width: 5%;
+    background-color: inherit;
+}
+
+.todos-item_delete:hover{
+    background-color: rgba(0,0,0,0.2);
+}
+/*
+ * Action bar
+*/
+.todos-actions-bar{
+    background-color: rgba(255,101,81,0.3);
+    border: 1px solid rgba(0,0,0,0.08);
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.todos-actions-bar_counter-undone{
+    font-size: 0.5em;
+
+}
+
+
