@@ -7,59 +7,86 @@
     <title>TODOS</title>
 
     <!-- Custom styles for this template -->
-    <link rel='stylesheet' type='text/css' href='css/styles.css'>
+    <link rel='stylesheet' type='text/css' href='./styles/default.css'>
 
 </head>
 
-<body class="body-grid">
-
+<body>
+<div class="todos-main-wrapper">
     <div class="todos-header">
-
-        <h1 class="todos-title">todos</h1>
-
+        todos
     </div>
 
     <div class="todos-container">
 
         <div class="todos-add">
 
-            <button class="todos-add_select-all" aria-label="select all like done"></button>
-            <input class="todos-add_new-item" placeholder="What needs to be done?" aria-label="add new item"/>
-
+            <button class="todos-add_select-all" aria-label="select all like done">
+                <div class="todos-add_select-all_icon"></div>
+            </button>
+            <div class="todos-add_new-item-w">
+                <input class="todos-add_new-item" placeholder="What needs to be done?" aria-label="add new item"/>
+            </div>
         </div>
 
         <div class="todos-list">
 
             <div class="todos-item">
-
-                <input class="todos-item_undone-mark" type="checkbox" aria-label="mark done"/>
-                <textarea class="todos-item_name">HTML</textarea>
-                <button class="todos-item_delete" aria-label="delete item"></button>
+                <div class="todos-item_undone-mark-w">
+                    <input class="todos-item_undone-mark" type="checkbox" aria-label="mark done"/>
+                    <div class="todos-item_undone-mark-icon"></div>
+                </div>
+                <button class="todos-item_delete" aria-label="delete item">
+                    <div class="todos-item_delete_icon"></div>
+                </button>
+                <div class="todos-item_name-w">
+                    <textarea class="todos-item_name">HTML</textarea>
+                </div>
 
             </div>
 
             <div class="todos-item __done">
 
-                <input class="todos-item_done-mark" type="checkbox" checked="checked" aria-label="mark undone"/>
-                <textarea class="todos-item_name">CSS</textarea>
-                <button class="todos-item_delete" aria-label="delete item"></button>
+                <div class="todos-item_done-mark-w">
+                    <input class="todos-item_done-mark" type="checkbox" checked="checked" aria-label="mark undone"/>
+                    <div class="todos-item_done-mark-icon"></div>
+                </div>
+                <button class="todos-item_delete" aria-label="delete item">
+                    <div class="todos-item_delete_icon"></div>
+                </button>
+                <div class="todos-item_name-w">
+                    <textarea class="todos-item_name">CSS</textarea>
+                </div>
 
             </div>
 
             <div class="todos-item">
 
-                <input class="todos-item_undone-mark" type="checkbox" aria-label="mark done"/>
-                <textarea class="todos-item_name">JS</textarea>
-                <button class="todos-item_delete" aria-label="delete item"></button>
+                <div class="todos-item_undone-mark-w">
+                    <input class="todos-item_undone-mark" type="checkbox" aria-label="mark done"/>
+                    <div class="todos-item_undone-mark-icon"></div>
+                </div>
+                <button class="todos-item_delete" aria-label="delete item">
+                    <div class="todos-item_delete_icon"></div>
+                </button>
+                <div class="todos-item_name-w">
+                    <textarea class="todos-item_name">JS</textarea>
+                </div>
 
             </div>
 
             <div class="todos-item">
 
-                <input class="todos-item_undone-mark" type="checkbox" aria-label="mark done"/>
-                <textarea class="todos-item_name">JS tools</textarea>
-                <button class="todos-item_delete" aria-label="delete item"></button>
-
+                <div class="todos-item_undone-mark-w">
+                    <input class="todos-item_undone-mark" type="checkbox" aria-label="mark done"/>
+                    <div class="todos-item_undone-mark-icon"></div>
+                </div>
+                <button class="todos-item_delete" aria-label="delete item">
+                    <div class="todos-item_delete_icon"></div>
+                </button>
+                <div class="todos-item_name-w">
+                    <textarea class="todos-item_name">JS tools</textarea>
+                </div>
             </div>
 
         </div>
@@ -76,12 +103,14 @@
                 <button class="todos-filter __active" aria-label="show done items">Completed</button>
             </div>
 
-            <button class="todos-actions-bar_delete-done" aria-label="delete all done items">Clear completed</button>
+            <button class="todos-actions-bar_delete-done" aria-label="delete all done items">
+                <div class="todos-actions-bar_delete-done-text">Clear completed</div>
+            </button>
 
         </div>
 
     </div>
-
+</div>
 </body>
 
 </html>
