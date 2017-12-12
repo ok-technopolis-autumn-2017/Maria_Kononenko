@@ -7,7 +7,8 @@
     <title>TODOS</title>
 
     <!-- Custom styles for this template -->
-    <link rel='stylesheet' type='text/css' href='./styles/default.css'>
+    <link rel='stylesheet' type='text/css' href='dist/styles/default.css'>
+    <script src="dist/scripts/bundle.js"></script>
 
 </head>
 
@@ -75,20 +76,6 @@
 
             </div>
 
-            <div class="todos-item">
-
-                <div class="todos-item_undone-mark-w">
-                    <input class="todos-item_undone-mark" type="checkbox" aria-label="mark done"/>
-                    <div class="todos-item_undone-mark-icon"></div>
-                </div>
-                <button class="todos-item_delete" aria-label="delete item">
-                    <div class="todos-item_delete_icon"></div>
-                </button>
-                <div class="todos-item_name-w">
-                    <textarea class="todos-item_name">JS tools</textarea>
-                </div>
-            </div>
-
         </div>
 
         <div class="todos-actions-bar ">
@@ -102,10 +89,11 @@
                 <button class="todos-filter" aria-label="show undone items">Active</button>
                 <button class="todos-filter __active" aria-label="show done items">Completed</button>
             </div>
-
-            <button class="todos-actions-bar_delete-done" aria-label="delete all done items">
-                <div class="todos-actions-bar_delete-done-text">Clear completed</div>
-            </button>
+            <div class="todos-actions-bar_delete">
+                <button class="todos-actions-bar_delete-done" aria-label="delete all done items">
+                    Clear completed
+                </button>
+            </div>
 
         </div>
 
