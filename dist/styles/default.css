@@ -99,6 +99,7 @@ header {
   margin: 0;
   padding: 0;
   float: left;
+  cursor: pointer;
   position: relative;
 }
 
@@ -181,14 +182,17 @@ header {
   border-radius: 4em;
   float: left;
   position: relative;
+  opacity: 1;
 }
 
 .todos-item_done-mark-w {
   border: 2px solid #67c5b3;
+  opacity: 1;
 }
 
 .todos-item_undone-mark-w {
   border: 2px solid #efefef;
+  opacity: 1;
 }
 
 .todos-item_done-mark,
@@ -196,31 +200,36 @@ header {
   position: absolute;
   left: 25%;
   top: 25%;
-  transform: scale(3);
-  opacity: -1;
+  transform: scale(4);
+  opacity: -10;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-.todos-item_undone-mark + .todos-item_undone-mark-icon {
+.todos-item_undone-mark-icon {
+  position: absolute;
   width: 24px;
   height: 24px;
   background: url("../images/icons/completed.png") no-repeat 0 0;
   filter: grayscale(100%);
-  position: absolute;
   left: 50%;
   top: 50%;
   margin-left: -10px;
   margin-top: -10px;
+  opacity: 300;
 }
 
-.todos-item_done-mark + .todos-item_done-mark-icon {
+.todos-item_done-mark-icon {
+  position: absolute;
   width: 24px;
   height: 24px;
   background: url("../images/icons/completed.png") no-repeat 0 0;
-  position: absolute;
   left: 50%;
   top: 50%;
   margin-left: -10px;
   margin-top: -10px;
+  opacity: 300;
 }
 
 /* NAME*/
@@ -260,6 +269,7 @@ header {
   padding: 0;
   margin: 0;
   float: right;
+  cursor: pointer;
   position: relative;
 }
 
@@ -312,6 +322,7 @@ header {
   border-radius: 2px;
   background: none;
   outline: none;
+  cursor: pointer;
 }
 
 .todos-filter:hover,
@@ -335,6 +346,7 @@ header {
   box-sizing: border-box;
   border: 2px solid #fff;
   border-radius: 2px;
+  cursor: pointer;
   background: none;
   outline: none;
 }

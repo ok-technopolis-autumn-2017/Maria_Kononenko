@@ -8,7 +8,7 @@
 
     <!-- Custom styles for this template -->
     <link rel='stylesheet' type='text/css' href='dist/styles/default.css'>
-    <script src="dist/scripts/bundle.js"></script>
+
 
 </head>
 
@@ -31,51 +31,6 @@
         </div>
 
         <div class="todos-list">
-
-            <div class="todos-item">
-                <div class="todos-item_undone-mark-w">
-                    <input class="todos-item_undone-mark" type="checkbox" aria-label="mark done"/>
-                    <div class="todos-item_undone-mark-icon"></div>
-                </div>
-                <button class="todos-item_delete" aria-label="delete item">
-                    <div class="todos-item_delete_icon"></div>
-                </button>
-                <div class="todos-item_name-w">
-                    <textarea class="todos-item_name">HTML</textarea>
-                </div>
-
-            </div>
-
-            <div class="todos-item __done">
-
-                <div class="todos-item_done-mark-w">
-                    <input class="todos-item_done-mark" type="checkbox" checked="checked" aria-label="mark undone"/>
-                    <div class="todos-item_done-mark-icon"></div>
-                </div>
-                <button class="todos-item_delete" aria-label="delete item">
-                    <div class="todos-item_delete_icon"></div>
-                </button>
-                <div class="todos-item_name-w">
-                    <textarea class="todos-item_name">CSS</textarea>
-                </div>
-
-            </div>
-
-            <div class="todos-item">
-
-                <div class="todos-item_undone-mark-w">
-                    <input class="todos-item_undone-mark" type="checkbox" aria-label="mark done"/>
-                    <div class="todos-item_undone-mark-icon"></div>
-                </div>
-                <button class="todos-item_delete" aria-label="delete item">
-                    <div class="todos-item_delete_icon"></div>
-                </button>
-                <div class="todos-item_name-w">
-                    <textarea class="todos-item_name">JS</textarea>
-                </div>
-
-            </div>
-
         </div>
 
         <div class="todos-actions-bar ">
@@ -85,9 +40,9 @@
             </div>
 
             <div class="todos-filters">
-                <button class="todos-filter __active" aria-label="show all items">All</button>
-                <button class="todos-filter" aria-label="show undone items">Active</button>
-                <button class="todos-filter __active" aria-label="show done items">Completed</button>
+                <button class="todos-filter __all" autofocus="autofocus" aria-label="show all items">All</button>
+                <button class="todos-filter __active" aria-label="show undone items">Active</button>
+                <button class="todos-filter __completed" aria-label="show done items">Completed</button>
             </div>
             <div class="todos-actions-bar_delete">
                 <button class="todos-actions-bar_delete-done" aria-label="delete all done items">
@@ -99,6 +54,7 @@
 
     </div>
 </div>
+<script src="dist/scripts/bundle.js"></script>
 </body>
 
 </html>
