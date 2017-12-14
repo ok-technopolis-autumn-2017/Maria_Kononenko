@@ -72,11 +72,15 @@
 	    switch (event.target.className){
 	        case "todos-add_new-item": {
 	            if (event.keyCode == 13) {
-	                add.addTodos(event, this.value);
-	                this.value = "";
-	                view.getView();
-	                putListeners();
-	                leftItems.countLeftItems();
+	                if (this.value.localeCompare("") !==0) {
+	                    add.addTodos(event, this.value);
+	                    this.value = "";
+	                    view.getView();
+	                    putListeners();
+	                    leftItems.countLeftItems();
+	                } else {
+	                    alert("ENTER NODE NAME");
+	                }
 	            }
 	        } break;
 
@@ -153,11 +157,10 @@
 	        state: "undone"
 	    }
 
-	    if (value.localeCompare("") !==0) {
-	        storage.setLocalStorage(curElement);
-	    } else {
-	        alert("ENTER NODE NAME");
-	    }
+
+	    storage.setLocalStorage(curElement);
+
+
 
 	    curElement = null;
 	}
