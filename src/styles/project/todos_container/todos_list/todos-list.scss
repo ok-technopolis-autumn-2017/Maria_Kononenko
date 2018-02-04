@@ -42,6 +42,10 @@
                 text-decoration:line-through;
             }
 
+        .todos-item_belonging-checkbox{
+            float: left;
+        }
+
         /*DELETE BUTTOM*/
         .todos-item_delete-w{
             width: 64px;

@@ -5,7 +5,7 @@ const clean = require('gulp-clean');
 const rebaseUrls = require('gulp-css-rebase-urls');
 const urlAdjuster = require('gulp-css-url-adjuster');
 const gulpIf = require('gulp-if');
-const webpack = require('gulp-webpack');
+const webpack = require('webpack-stream');
 
 
 const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
@@ -58,7 +58,7 @@ gulp.task('scripts-clean-dist', () =>
 gulp.task('webpack', () =>
     gulp.src('./src/scripts/main.js')
         .pipe(webpack(require('./webpack.config.js')))
-        .pipe(gulp.dest('public/dist/scripts/'))
+        .pipe(gulp.dest('public/dist/scripts'))
 );
 
 gulp.task('webpack:watch', ['webpack'], () =>

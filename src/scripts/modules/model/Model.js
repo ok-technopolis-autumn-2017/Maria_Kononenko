@@ -1,40 +1,39 @@
-var DataStorage = require("../../dataStorage/DataStorage")
-/**
- * @type {{storage: DataStorageConstructor, getModel: Model.getModel, addTodos: Model.addTodos, markAllDone: Model.markAllDone, changeItemState: Model.changeItemState, deleteItem: Model.deleteItem, deleteAllDoneItems: Model.deleteAllDoneItems}}
- * @see DataStorage
- */
+var DataStorage = require("../../dataStorage/DataStorage");
+
 var Model = {
     "storage": new DataStorage(),
 
     "getModel": function () {
-        return this.storage.getLocalStorage("todosElements");
+        return this.storage.getLocalStorage("todos")
     },
 
     "addTodos": function (value) {
         this.storage.setLocalStorage(value);
-        return this.storage.getLocalStorage("todosElements");
+        return this.storage.getLocalStorage("todos")
     },
 
-    "markAllDone": function () {
-        for (let i = 0; i < this.storage.length(); i++) {
-            this.storage.changeStateLocalStorage(i, "done");
-        }
-        return this.storage.getLocalStorage("todosElements");
+    "isEmpty": function () {
+        return this.storage.isLocalStorageEmpty()
     },
 
-    "changeItemState" : function (index) {
-        this.storage.changeStateLocalStorage(index);
-        return this.storage.getLocalStorage("todosElements");
+    "makeAllCompleted": function () {
+        this.storage.makeAllCompletedLocalStorage();
+        return this.storage.getLocalStorage("todos");
     },
 
-    "deleteItem": function (index) {
-        this.storage.deleteFromLocalStorage(index);
-        return this.storage.getLocalStorage("todosElements");
+    "toggleItem" : function (id) {
+        this.storage.toggleTodosLocalStorage(id);
+        return this.storage.getLocalStorage("todos");
     },
 
-    "deleteAllDoneItems": function () {
-        this.storage.clearComFromLocalStorage();
-        return this.storage.getLocalStorage("todosElements");
+    "deleteItem": function (id) {
+        this.storage.deleteTodosLocalStorage(id);
+        return this.storage.getLocalStorage("todos");
+    },
+
+    "deleteAllCompletedItems": function () {
+        this.storage.deleteAllCompletedTodosLocalStorage();
+        return this.storage.getLocalStorage("todos");
     }
 }
 
