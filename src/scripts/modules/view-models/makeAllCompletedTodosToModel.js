@@ -7,7 +7,8 @@ function makeAllCompletedTodosToModel() {
     this.getNewModelState.subscribe(AddTodos.onChange)
 }
 
-var makeAllCompletedTodosToModelPrototype = makeAllCompletedTodosToModel.prototype;
+var makeAllCompletedTodosToModelPrototype
+    = makeAllCompletedTodosToModel.prototype;
 
 makeAllCompletedTodosToModelPrototype.model = require('../model/Model');
 
@@ -15,9 +16,11 @@ makeAllCompletedTodosToModelPrototype.onUpdateModel = new Observable();
 
 makeAllCompletedTodosToModelPrototype.getNewModelState = function(value) {
     if (value.type.localeCompare(ActionsTypes.MAKE_ALL_COMPLETED_TODOS) == 0) {
-        var currentModel = makeAllCompletedTodosToModelPrototype.model.makeAllCompleted();
+        var currentModel = makeAllCompletedTodosToModelPrototype
+            .model.makeAllCompleted();
 
-        makeAllCompletedTodosToModelPrototype.onUpdateModel.deliver(currentModel);
+        makeAllCompletedTodosToModelPrototype
+            .onUpdateModel.deliver(currentModel);
 
         currentModel = null;
     }

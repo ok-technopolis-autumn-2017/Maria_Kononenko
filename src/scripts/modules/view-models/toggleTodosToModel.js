@@ -15,7 +15,8 @@ toggleTodosToModelPrototype.onUpdateModel = new Observable();
 
 toggleTodosToModelPrototype.getNewModelState = function(value) {
     if (value.type.localeCompare(ActionsTypes.TOGGLE_TODOS) == 0) {
-        var currentModel = toggleTodosToModelPrototype.model.toggleItem(value.id);
+        var currentModel = toggleTodosToModelPrototype
+            .model.toggleItem(value.id);
         toggleTodosToModelPrototype.onUpdateModel.deliver(currentModel);
 
         currentModel = null;

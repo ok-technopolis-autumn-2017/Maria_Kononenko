@@ -4,7 +4,7 @@ Observable = function() {
 
 Observable.prototype.deliver =function(data) {
     for (var i in this.observers) {
-        this.observers[i].func.call(this.observers[i].context, data); //функция теперь вызывается в нужном контексте
+        this.observers[i].func.call(this.observers[i].context, data);
     }
 };
 

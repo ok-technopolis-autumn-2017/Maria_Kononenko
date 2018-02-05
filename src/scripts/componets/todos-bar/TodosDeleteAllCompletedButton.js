@@ -7,9 +7,11 @@ function TodosDeleteAllCompletedConstructor() {
     this.todosDelButton.addEventListener('click', this.handlerClick);
 }
 
-var todosDeleteAllCompletedConstructorPrototype = TodosDeleteAllCompletedConstructor.prototype;
+var todosDeleteAllCompletedConstructorPrototype =
+    TodosDeleteAllCompletedConstructor.prototype;
 
-todosDeleteAllCompletedConstructorPrototype.todosDelButton = document.getElementsByClassName(TODOS_DELETE_ALL_COMPLETED_BUTTON)[0];
+todosDeleteAllCompletedConstructorPrototype.todosDelButton =
+    document.getElementsByClassName(TODOS_DELETE_ALL_COMPLETED_BUTTON)[0];
 
 todosDeleteAllCompletedConstructorPrototype.onChange = new Observable();
 

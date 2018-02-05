@@ -120,7 +120,9 @@ dataStorageConstructorPrototype.deleteTodosLocalStorage = function(id) {
     structure = null;
 };
 
-dataStorageConstructorPrototype.deleteAllCompletedTodosLocalStorage = function() {
+dataStorageConstructorPrototype.deleteAllCompletedTodosLocalStorage
+    = function() {
+
     var structure = this.getLocalStorage("todos");
 
     structure.todosArray = structure.todosArray.filter(function (todosItem) {

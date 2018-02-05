@@ -12,9 +12,11 @@ function AddTodosConstructor() {
 
 var addTodosConstructorPrototype = AddTodosConstructor.prototype;
 
-addTodosConstructorPrototype.todosAddInput = document.querySelector(TODOS_ADD_INPUT);
+addTodosConstructorPrototype.todosAddInput = document
+    .querySelector(TODOS_ADD_INPUT);
 
-addTodosConstructorPrototype.todosDelButton = document.querySelector(TODOS_MAKE_ALL_COMPLETED_BUTTON);
+addTodosConstructorPrototype.todosDelButton = document
+    .querySelector(TODOS_MAKE_ALL_COMPLETED_BUTTON);
 
 addTodosConstructorPrototype.onChange = new Observable();
 

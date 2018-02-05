@@ -1,10 +1,13 @@
 var subscribe = require('../utils/observer/subscribe');
 var addTodosToModel = require('../modules/view-models/addTodosToModel');
-var makeAllCompletedTodosToModel = require('../modules/view-models/makeAllCompletedTodosToModel');
+var makeAllCompletedTodosToModel = require(
+    '../modules/view-models/makeAllCompletedTodosToModel');
 var toggleTodosToModel = require('../modules/view-models/toggleTodosToModel');
 var deleteTodosToModel = require('../modules/view-models/deleteTodosToModel');
-var setTodosFilterToModel = require('../modules/view-models/setTodosFilterToModel');
-var deleteAllCompletedTodosToModel = require('../modules/view-models/deleteAllCompletedTodosToModel');
+var setTodosFilterToModel = require(
+    '../modules/view-models/setTodosFilterToModel');
+var deleteAllCompletedTodosToModel = require(
+    '../modules/view-models/deleteAllCompletedTodosToModel');
 
 var AddTodos = require('./add-todos/AddTodos');
 var TodosList = require('./todos_list/TodosList');

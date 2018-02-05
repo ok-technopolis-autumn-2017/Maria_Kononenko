@@ -5,7 +5,8 @@ var ActionsTypes = require('../../constants/ActionsTypes');
 var TODOS_LIST = ".todos-list";
 
 var TODOS_DELETE_BUTTON_CLASS_NAME = "todos-item_delete";
-var TODOS_CHECKBOX_CLASS_NAME = ["todos-item_done-mark", "todos-item_undone-mark"];
+var TODOS_CHECKBOX_CLASS_NAME =
+    ["todos-item_done-mark", "todos-item_undone-mark"];
 
 
 function TodosListConstructor() {
@@ -70,7 +71,8 @@ todosListConstructorPrototype.render = function (currentModel) {
 
         if (TodosItemNode === null) {
 
-            var newTodosItem = TodosItem.render(currentItemProps, currentModel.currentFilter);
+            var newTodosItem = TodosItem.render(currentItemProps,
+                currentModel.currentFilter);
 
             todosListConstructorPrototype.todosList.appendChild(newTodosItem)
 
@@ -79,7 +81,8 @@ todosListConstructorPrototype.render = function (currentModel) {
 
         } else {
 
-            TodosItem.update(currentItemProps, currentModel.currentFilter, TodosItemNode);
+            TodosItem.update(currentItemProps, currentModel.currentFilter,
+                TodosItemNode);
 
         }
     });
