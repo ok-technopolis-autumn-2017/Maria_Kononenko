@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,7 @@ Observable = function() {
 
 Observable.prototype.deliver =function(data) {
     for (var i in this.observers) {
-        this.observers[i].func.call(this.observers[i].context, data); //функция теперь вызывается в нужном контексте
+        this.observers[i].func.call(this.observers[i].context, data);
     }
 };
 
@@ -101,18 +101,19 @@ module.exports = CONSTS;
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DataStorage = __webpack_require__(9);
+var DataStorage = __webpack_require__(10);
+var LocalStorageKey = __webpack_require__(7);
 
 var Model = {
     "storage": new DataStorage(),
 
     "getModel": function () {
-        return this.storage.getLocalStorage("todos")
+        return this.storage.getLocalStorage(LocalStorageKey)
     },
 
     "addTodos": function (value) {
         this.storage.setLocalStorage(value);
-        return this.storage.getLocalStorage("todos")
+        return this.storage.getLocalStorage(LocalStorageKey)
     },
 
     "isEmpty": function () {
@@ -121,22 +122,22 @@ var Model = {
 
     "makeAllCompleted": function () {
         this.storage.makeAllCompletedLocalStorage();
-        return this.storage.getLocalStorage("todos");
+        return this.storage.getLocalStorage(LocalStorageKey);
     },
 
     "toggleItem" : function (id) {
         this.storage.toggleTodosLocalStorage(id);
-        return this.storage.getLocalStorage("todos");
+        return this.storage.getLocalStorage(LocalStorageKey);
     },
 
     "deleteItem": function (id) {
         this.storage.deleteTodosLocalStorage(id);
-        return this.storage.getLocalStorage("todos");
+        return this.storage.getLocalStorage(LocalStorageKey);
     },
 
     "deleteAllCompletedItems": function () {
         this.storage.deleteAllCompletedTodosLocalStorage();
-        return this.storage.getLocalStorage("todos");
+        return this.storage.getLocalStorage(LocalStorageKey);
     }
 }
 
@@ -147,8 +148,8 @@ module.exports = Model;
 /***/ (function(module, exports) {
 
 Function.prototype.subscribe = function(observable, context) {
-    var ctx = context || this; //если контекст вызова не задан, то контекстом считается this «по-умолчанию», то есть текущая функция
-    var observer = { //теперь наблюдатель будет сообщать, в каком контексте нужно вызвать функцию
+    var ctx = context || this;
+    var observer = {
         context: ctx,
         func: this
     };
@@ -189,9 +190,11 @@ function AddTodosConstructor() {
 
 var addTodosConstructorPrototype = AddTodosConstructor.prototype;
 
-addTodosConstructorPrototype.todosAddInput = document.querySelector(TODOS_ADD_INPUT);
+addTodosConstructorPrototype.todosAddInput = document
+    .querySelector(TODOS_ADD_INPUT);
 
-addTodosConstructorPrototype.todosDelButton = document.querySelector(TODOS_MAKE_ALL_COMPLETED_BUTTON);
+addTodosConstructorPrototype.todosDelButton = document
+    .querySelector(TODOS_MAKE_ALL_COMPLETED_BUTTON);
 
 addTodosConstructorPrototype.onChange = new Observable();
 
@@ -226,14 +229,15 @@ module.exports = new AddTodosConstructor();
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var TodosItem = __webpack_require__(14);
+var TodosItem = __webpack_require__(15);
 var Observable = __webpack_require__(0);
 var ActionsTypes = __webpack_require__(1);
 
 var TODOS_LIST = ".todos-list";
 
 var TODOS_DELETE_BUTTON_CLASS_NAME = "todos-item_delete";
-var TODOS_CHECKBOX_CLASS_NAME = ["todos-item_done-mark", "todos-item_undone-mark"];
+var TODOS_CHECKBOX_CLASS_NAME =
+    ["todos-item_done-mark", "todos-item_undone-mark"];
 
 
 function TodosListConstructor() {
@@ -298,7 +302,8 @@ todosListConstructorPrototype.render = function (currentModel) {
 
         if (TodosItemNode === null) {
 
-            var newTodosItem = TodosItem.render(currentItemProps, currentModel.currentFilter);
+            var newTodosItem = TodosItem.render(currentItemProps,
+                currentModel.currentFilter);
 
             todosListConstructorPrototype.todosList.appendChild(newTodosItem)
 
@@ -307,7 +312,8 @@ todosListConstructorPrototype.render = function (currentModel) {
 
         } else {
 
-            TodosItem.update(currentItemProps, currentModel.currentFilter, TodosItemNode);
+            TodosItem.update(currentItemProps, currentModel.currentFilter,
+                TodosItemNode);
 
         }
     });
@@ -326,6 +332,14 @@ module.exports = new TodosListConstructor();
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+var KEY = "VanillaJSTodos1";
+
+module.exports = KEY;
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Observable = __webpack_require__(0);
@@ -340,11 +354,14 @@ function TodosFiltersConstructor() {
 
 var todosFiltersConstructorPrototype = TodosFiltersConstructor.prototype;
 
-todosFiltersConstructorPrototype.todosDelButton = document.querySelector(TODOS_FILTERS_CLASS);
+todosFiltersConstructorPrototype.todosDelButton =
+    document.querySelector(TODOS_FILTERS_CLASS);
 
 todosFiltersConstructorPrototype.onChange = new Observable();
 
-todosFiltersConstructorPrototype.setFocus = function (currentFilter, choosenFilter, type) {
+todosFiltersConstructorPrototype.setFocus = function (
+    currentFilter, choosenFilter, type) {
+
     switch (choosenFilter) {
         case FilterTypes.FILTER_ALL: {
             if (currentFilter.localeCompare(FilterTypes.FILTER_ALL) == 0) {
@@ -380,7 +397,8 @@ todosFiltersConstructorPrototype.setFocus = function (currentFilter, choosenFilt
         } break;
 
         case (FilterTypes.FILTER_COMPLETED): {
-            if (currentFilter.localeCompare(FilterTypes.FILTER_COMPLETED) == 0) {
+            if (currentFilter.localeCompare(
+                FilterTypes.FILTER_COMPLETED) == 0) {
                 if (type = "b") {
                     return '2px solid #efefef'
                 } else {
@@ -398,40 +416,55 @@ todosFiltersConstructorPrototype.setFocus = function (currentFilter, choosenFilt
 };
 
 todosFiltersConstructorPrototype.handlerClick = function (event) {
-    if (event.target.className.localeCompare(FilterTypes.FILTER_COMPLETED) == 0 ||
-        event.target.className.localeCompare(FilterTypes.FILTER_ACTIVE) == 0||
-        event.target.className.localeCompare(FilterTypes.FILTER_ALL) == 0) {
+    if (event.target.className.localeCompare(
+        FilterTypes.FILTER_COMPLETED) == 0 ||
+        event.target.className.localeCompare(
+            FilterTypes.FILTER_ACTIVE) == 0||
+        event.target.className.localeCompare(
+            FilterTypes.FILTER_ALL) == 0) {
+
         todosFiltersConstructorPrototype.onChange.deliver({
             "type": ActionsTypes.SET_VISIBILITY_FILTER,
             "filter": event.target.className
         });
+
     }
 };
 
 todosFiltersConstructorPrototype.render = function (currentFilter) {
     document.getElementsByClassName(FilterTypes.FILTER_ALL)[0].style.border =
-            todosFiltersConstructorPrototype.setFocus(currentFilter, FilterTypes.FILTER_ALL, "b");
+            todosFiltersConstructorPrototype.setFocus(currentFilter,
+                FilterTypes.FILTER_ALL, "b");
     document.getElementsByClassName(FilterTypes.FILTER_ACTIVE)[0].style.border =
-        todosFiltersConstructorPrototype.setFocus(currentFilter, FilterTypes.FILTER_ACTIVE, "b");
-    document.getElementsByClassName(FilterTypes.FILTER_COMPLETED)[0].style.border =
-        todosFiltersConstructorPrototype.setFocus(currentFilter, FilterTypes.FILTER_COMPLETED, "b");
-    document.getElementsByClassName(FilterTypes.FILTER_ALL)[0].style.borderRadius =
-        todosFiltersConstructorPrototype.setFocus(currentFilter, FilterTypes.FILTER_ALL, "br");
-    document.getElementsByClassName(FilterTypes.FILTER_ACTIVE)[0].style.borderRadius =
-        todosFiltersConstructorPrototype.setFocus(currentFilter, FilterTypes.FILTER_ACTIVE, "br");
-    document.getElementsByClassName(FilterTypes.FILTER_COMPLETED)[0].style.borderRadius =
-        todosFiltersConstructorPrototype.setFocus(currentFilter, FilterTypes.FILTER_COMPLETED, "br");
+        todosFiltersConstructorPrototype.setFocus(currentFilter,
+            FilterTypes.FILTER_ACTIVE, "b");
+    document.getElementsByClassName(FilterTypes.FILTER_COMPLETED)[0]
+        .style.border =
+        todosFiltersConstructorPrototype.setFocus(currentFilter,
+            FilterTypes.FILTER_COMPLETED, "b");
+    document.getElementsByClassName(FilterTypes.FILTER_ALL)[0]
+        .style.borderRadius =
+        todosFiltersConstructorPrototype.setFocus(currentFilter,
+            FilterTypes.FILTER_ALL, "br");
+    document.getElementsByClassName(FilterTypes.FILTER_ACTIVE)[0]
+        .style.borderRadius =
+        todosFiltersConstructorPrototype.setFocus(currentFilter,
+            FilterTypes.FILTER_ACTIVE, "br");
+    document.getElementsByClassName(FilterTypes.FILTER_COMPLETED)[0]
+        .style.borderRadius =
+        todosFiltersConstructorPrototype.setFocus(currentFilter,
+            FilterTypes.FILTER_COMPLETED, "br");
 
 };
 
 module.exports = new TodosFiltersConstructor();
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var model = __webpack_require__(2);
-var TodosContainer = __webpack_require__(10);
+var TodosContainer = __webpack_require__(11);
 var FilterTypes = __webpack_require__(4);
 
 function init() {
@@ -449,8 +482,10 @@ document.addEventListener('DOMContentLoaded', init);
 
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports) {
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var LocalStorageKey = __webpack_require__(7);
 
 function DataStorageConstructor() {}
 
@@ -463,7 +498,7 @@ dataStorageConstructorPrototype.getLocalStorage = function (key) {
 dataStorageConstructorPrototype.setLocalStorage = function (value) {
     var todosStructure;
 
-    if (localStorage.length === 0) {
+    if (dataStorageConstructorPrototype.isLocalStorageEmpty()) {
         if (value.todosItem === undefined) {
             todosStructure = {
                 "todosArray": [],
@@ -476,7 +511,7 @@ dataStorageConstructorPrototype.setLocalStorage = function (value) {
             }
         }
     } else {
-        todosStructure = this.getLocalStorage("todos");
+        todosStructure = this.getLocalStorage(LocalStorageKey);
         if (value.todosItem !== undefined) {
             todosStructure.todosArray.push(value.todosItem);
         }
@@ -487,7 +522,7 @@ dataStorageConstructorPrototype.setLocalStorage = function (value) {
     }
 
     try {
-        localStorage.setItem("todos", JSON.stringify(todosStructure));
+        localStorage.setItem(LocalStorageKey, JSON.stringify(todosStructure));
     } catch (e) {
         if (e == QUOTA_EXCEEDED_ERR) {
             alert('Sorry')
@@ -498,14 +533,14 @@ dataStorageConstructorPrototype.setLocalStorage = function (value) {
 };
 
 dataStorageConstructorPrototype.isLocalStorageEmpty = function () {
-    var structure = this.getLocalStorage("todos");
+    var structure = this.getLocalStorage(LocalStorageKey);
 
     return (structure === null);
 
 };
 
 dataStorageConstructorPrototype.makeAllCompletedLocalStorage = function () {
-    var structure = this.getLocalStorage("todos");
+    var structure = this.getLocalStorage(LocalStorageKey);
 
     structure.todosArray = structure.todosArray.map(function (todosItem) {
         return {
@@ -516,7 +551,7 @@ dataStorageConstructorPrototype.makeAllCompletedLocalStorage = function () {
     });
 
     try {
-        localStorage.setItem("todos", JSON.stringify(structure));
+        localStorage.setItem(LocalStorageKey, JSON.stringify(structure));
     } catch (e) {
         if (e == QUOTA_EXCEEDED_ERR) {
             alert('Sorry')
@@ -527,7 +562,7 @@ dataStorageConstructorPrototype.makeAllCompletedLocalStorage = function () {
 };
 
 dataStorageConstructorPrototype.toggleTodosLocalStorage = function(id) {
-    var structure = this.getLocalStorage("todos");
+    var structure = this.getLocalStorage(LocalStorageKey);
 
     structure.todosArray = structure.todosArray.map(function (todosItem) {
         if (todosItem.id == id) {
@@ -542,7 +577,7 @@ dataStorageConstructorPrototype.toggleTodosLocalStorage = function(id) {
     });
 
     try {
-        localStorage.setItem("todos", JSON.stringify(structure));
+        localStorage.setItem(LocalStorageKey, JSON.stringify(structure));
     } catch (e) {
         if (e == QUOTA_EXCEEDED_ERR) {
             alert('Sorry')
@@ -553,7 +588,7 @@ dataStorageConstructorPrototype.toggleTodosLocalStorage = function(id) {
 };
 
 dataStorageConstructorPrototype.deleteTodosLocalStorage = function(id) {
-    var structure = this.getLocalStorage("todos");
+    var structure = this.getLocalStorage(LocalStorageKey);
 
     structure.todosArray = structure.todosArray.filter(function (todosItem) {
         if (todosItem.id == id) {
@@ -564,7 +599,7 @@ dataStorageConstructorPrototype.deleteTodosLocalStorage = function(id) {
     });
 
     try {
-        localStorage.setItem("todos", JSON.stringify(structure));
+        localStorage.setItem(LocalStorageKey, JSON.stringify(structure));
     } catch (e) {
         if (e == QUOTA_EXCEEDED_ERR) {
             alert('Sorry')
@@ -574,8 +609,10 @@ dataStorageConstructorPrototype.deleteTodosLocalStorage = function(id) {
     structure = null;
 };
 
-dataStorageConstructorPrototype.deleteAllCompletedTodosLocalStorage = function() {
-    var structure = this.getLocalStorage("todos");
+dataStorageConstructorPrototype.deleteAllCompletedTodosLocalStorage
+    = function() {
+
+    var structure = this.getLocalStorage(LocalStorageKey);
 
     structure.todosArray = structure.todosArray.filter(function (todosItem) {
         if (todosItem.completed) {
@@ -586,7 +623,7 @@ dataStorageConstructorPrototype.deleteAllCompletedTodosLocalStorage = function()
     });
 
     try {
-        localStorage.setItem("todos", JSON.stringify(structure));
+        localStorage.setItem(LocalStorageKey, JSON.stringify(structure));
     } catch (e) {
         if (e == QUOTA_EXCEEDED_ERR) {
             alert('Sorry')
@@ -599,20 +636,23 @@ dataStorageConstructorPrototype.deleteAllCompletedTodosLocalStorage = function()
 module.exports = DataStorageConstructor;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var subscribe = __webpack_require__(3);
-var addTodosToModel = __webpack_require__(11);
-var makeAllCompletedTodosToModel = __webpack_require__(12);
-var toggleTodosToModel = __webpack_require__(13);
-var deleteTodosToModel = __webpack_require__(15);
-var setTodosFilterToModel = __webpack_require__(16);
-var deleteAllCompletedTodosToModel = __webpack_require__(17);
+var addTodosToModel = __webpack_require__(12);
+var makeAllCompletedTodosToModel = __webpack_require__(
+    13);
+var toggleTodosToModel = __webpack_require__(14);
+var deleteTodosToModel = __webpack_require__(16);
+var setTodosFilterToModel = __webpack_require__(
+    17);
+var deleteAllCompletedTodosToModel = __webpack_require__(
+    18);
 
 var AddTodos = __webpack_require__(5);
 var TodosList = __webpack_require__(6);
-var TodosBar = __webpack_require__(19);
+var TodosBar = __webpack_require__(20);
 
 function TodosContainerConstructor() {
     this.render.subscribe(addTodosToModel.onUpdateModel);
@@ -635,7 +675,7 @@ TodosContainerConstructorPrototype.render = function (currentModel) {
 module.exports = TodosContainerConstructor;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Observable = __webpack_require__(0);
@@ -673,7 +713,7 @@ addTodosToModelPrototype.getNewModelState = function(value) {
 module.exports = new addTodosToModel();
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Observable = __webpack_require__(0);
@@ -685,7 +725,8 @@ function makeAllCompletedTodosToModel() {
     this.getNewModelState.subscribe(AddTodos.onChange)
 }
 
-var makeAllCompletedTodosToModelPrototype = makeAllCompletedTodosToModel.prototype;
+var makeAllCompletedTodosToModelPrototype
+    = makeAllCompletedTodosToModel.prototype;
 
 makeAllCompletedTodosToModelPrototype.model = __webpack_require__(2);
 
@@ -693,9 +734,11 @@ makeAllCompletedTodosToModelPrototype.onUpdateModel = new Observable();
 
 makeAllCompletedTodosToModelPrototype.getNewModelState = function(value) {
     if (value.type.localeCompare(ActionsTypes.MAKE_ALL_COMPLETED_TODOS) == 0) {
-        var currentModel = makeAllCompletedTodosToModelPrototype.model.makeAllCompleted();
+        var currentModel = makeAllCompletedTodosToModelPrototype
+            .model.makeAllCompleted();
 
-        makeAllCompletedTodosToModelPrototype.onUpdateModel.deliver(currentModel);
+        makeAllCompletedTodosToModelPrototype
+            .onUpdateModel.deliver(currentModel);
 
         currentModel = null;
     }
@@ -704,7 +747,7 @@ makeAllCompletedTodosToModelPrototype.getNewModelState = function(value) {
 module.exports = new makeAllCompletedTodosToModel();
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Observable = __webpack_require__(0);
@@ -724,7 +767,8 @@ toggleTodosToModelPrototype.onUpdateModel = new Observable();
 
 toggleTodosToModelPrototype.getNewModelState = function(value) {
     if (value.type.localeCompare(ActionsTypes.TOGGLE_TODOS) == 0) {
-        var currentModel = toggleTodosToModelPrototype.model.toggleItem(value.id);
+        var currentModel = toggleTodosToModelPrototype
+            .model.toggleItem(value.id);
         toggleTodosToModelPrototype.onUpdateModel.deliver(currentModel);
 
         currentModel = null;
@@ -734,7 +778,7 @@ toggleTodosToModelPrototype.getNewModelState = function(value) {
 module.exports = new toggleTodosToModel();
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var FilterTypes = __webpack_require__(4)
@@ -881,7 +925,7 @@ todosItemConstructorPrototype.render = function(props, currentFilter) {
 module.exports = new TodosItemConstructor();
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Observable = __webpack_require__(0);
@@ -901,7 +945,8 @@ deleteTodosToModelPrototype.onUpdateModel = new Observable();
 
 deleteTodosToModelPrototype.getNewModelState = function(value) {
     if (value.type.localeCompare(ActionsTypes.DELETE_TODOS) == 0) {
-        var currentModel = deleteTodosToModelPrototype.model.deleteItem(value.id);
+        var currentModel = deleteTodosToModelPrototype
+            .model.deleteItem(value.id);
         deleteTodosToModelPrototype.onUpdateModel.deliver(currentModel);
 
         currentModel = null;
@@ -911,12 +956,12 @@ deleteTodosToModelPrototype.getNewModelState = function(value) {
 module.exports = new deleteTodosToModel();
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Observable = __webpack_require__(0);
 var subscribe = __webpack_require__(3);
-var TodosFilters = __webpack_require__(7);
+var TodosFilters = __webpack_require__(8);
 var ActionsTypes =__webpack_require__(1);
 
 function setTodosFilterToModel() {
@@ -943,19 +988,21 @@ setTodosFilterToModelPrototype.getNewModelState = function(value) {
 module.exports = new setTodosFilterToModel();
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Observable = __webpack_require__(0);
 var subscribe = __webpack_require__(3);
-var TodosDeleteAllCompletedButton = __webpack_require__(18);
+var TodosDeleteAllCompletedButton = __webpack_require__(
+    19);
 var ActionsTypes =__webpack_require__(1);
 
 function deleteAllCompletedTodosToModel() {
     this.getNewModelState.subscribe(TodosDeleteAllCompletedButton.onChange)
 }
 
-var deleteAllCompletedTodosToModelPrototype = deleteAllCompletedTodosToModel.prototype;
+var deleteAllCompletedTodosToModelPrototype
+    = deleteAllCompletedTodosToModel.prototype;
 
 deleteAllCompletedTodosToModelPrototype.model = __webpack_require__(2);
 
@@ -963,9 +1010,11 @@ deleteAllCompletedTodosToModelPrototype.onUpdateModel = new Observable();
 
 deleteAllCompletedTodosToModelPrototype.getNewModelState = function(value) {
     if (value.type.localeCompare(ActionsTypes.DELETE_ALL_COMPLETED_TODOS) == 0) {
-        var currentModel = deleteAllCompletedTodosToModelPrototype.model.deleteAllCompletedItems();
+        var currentModel = deleteAllCompletedTodosToModelPrototype
+            .model.deleteAllCompletedItems();
 
-        deleteAllCompletedTodosToModelPrototype.onUpdateModel.deliver(currentModel);
+        deleteAllCompletedTodosToModelPrototype
+            .onUpdateModel.deliver(currentModel);
 
         currentModel = null;
     }
@@ -974,7 +1023,7 @@ deleteAllCompletedTodosToModelPrototype.getNewModelState = function(value) {
 module.exports = new deleteAllCompletedTodosToModel();
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Observable = __webpack_require__(0);
@@ -986,9 +1035,11 @@ function TodosDeleteAllCompletedConstructor() {
     this.todosDelButton.addEventListener('click', this.handlerClick);
 }
 
-var todosDeleteAllCompletedConstructorPrototype = TodosDeleteAllCompletedConstructor.prototype;
+var todosDeleteAllCompletedConstructorPrototype =
+    TodosDeleteAllCompletedConstructor.prototype;
 
-todosDeleteAllCompletedConstructorPrototype.todosDelButton = document.getElementsByClassName(TODOS_DELETE_ALL_COMPLETED_BUTTON)[0];
+todosDeleteAllCompletedConstructorPrototype.todosDelButton =
+    document.getElementsByClassName(TODOS_DELETE_ALL_COMPLETED_BUTTON)[0];
 
 todosDeleteAllCompletedConstructorPrototype.onChange = new Observable();
 
@@ -1004,11 +1055,11 @@ todosDeleteAllCompletedConstructorPrototype.handlerClick = function (event) {
 module.exports = new TodosDeleteAllCompletedConstructor();
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var TodosFilters = __webpack_require__(7);
-var TodosCounter = __webpack_require__(20);
+var TodosFilters = __webpack_require__(8);
+var TodosCounter = __webpack_require__(21);
 
 var TODOS_BAR = ".todos-actions-bar";
 
@@ -1036,7 +1087,7 @@ todosBarConstructorPrototype.render = function (todosArray, currentFilter) {
 module.exports = new TodosBarConstructor();
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 function TodosCounterConstructor() {

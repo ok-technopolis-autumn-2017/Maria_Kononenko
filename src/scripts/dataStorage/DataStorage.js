@@ -1,3 +1,5 @@
+var LocalStorageKey = require('../constants/LocalStorageKey');
+
 function DataStorageConstructor() {}
 
 var dataStorageConstructorPrototype = DataStorageConstructor.prototype;
@@ -9,7 +11,7 @@ dataStorageConstructorPrototype.getLocalStorage = function (key) {
 dataStorageConstructorPrototype.setLocalStorage = function (value) {
     var todosStructure;
 
-    if (localStorage.length === 0) {
+    if (dataStorageConstructorPrototype.isLocalStorageEmpty()) {
         if (value.todosItem === undefined) {
             todosStructure = {
                 "todosArray": [],
@@ -22,7 +24,7 @@ dataStorageConstructorPrototype.setLocalStorage = function (value) {
             }
         }
     } else {
-        todosStructure = this.getLocalStorage("todos");
+        todosStructure = this.getLocalStorage(LocalStorageKey);
         if (value.todosItem !== undefined) {
             todosStructure.todosArray.push(value.todosItem);
         }
@@ -33,7 +35,7 @@ dataStorageConstructorPrototype.setLocalStorage = function (value) {
     }
 
     try {
-        localStorage.setItem("todos", JSON.stringify(todosStructure));
+        localStorage.setItem(LocalStorageKey, JSON.stringify(todosStructure));
     } catch (e) {
         if (e == QUOTA_EXCEEDED_ERR) {
             alert('Sorry')
@@ -44,14 +46,14 @@ dataStorageConstructorPrototype.setLocalStorage = function (value) {
 };
 
 dataStorageConstructorPrototype.isLocalStorageEmpty = function () {
-    var structure = this.getLocalStorage("todos");
+    var structure = this.getLocalStorage(LocalStorageKey);
 
     return (structure === null);
 
 };
 
 dataStorageConstructorPrototype.makeAllCompletedLocalStorage = function () {
-    var structure = this.getLocalStorage("todos");
+    var structure = this.getLocalStorage(LocalStorageKey);
 
     structure.todosArray = structure.todosArray.map(function (todosItem) {
         return {
@@ -62,7 +64,7 @@ dataStorageConstructorPrototype.makeAllCompletedLocalStorage = function () {
     });
 
     try {
-        localStorage.setItem("todos", JSON.stringify(structure));
+        localStorage.setItem(LocalStorageKey, JSON.stringify(structure));
     } catch (e) {
         if (e == QUOTA_EXCEEDED_ERR) {
             alert('Sorry')
@@ -73,7 +75,7 @@ dataStorageConstructorPrototype.makeAllCompletedLocalStorage = function () {
 };
 
 dataStorageConstructorPrototype.toggleTodosLocalStorage = function(id) {
-    var structure = this.getLocalStorage("todos");
+    var structure = this.getLocalStorage(LocalStorageKey);
 
     structure.todosArray = structure.todosArray.map(function (todosItem) {
         if (todosItem.id == id) {
@@ -88,7 +90,7 @@ dataStorageConstructorPrototype.toggleTodosLocalStorage = function(id) {
     });
 
     try {
-        localStorage.setItem("todos", JSON.stringify(structure));
+        localStorage.setItem(LocalStorageKey, JSON.stringify(structure));
     } catch (e) {
         if (e == QUOTA_EXCEEDED_ERR) {
             alert('Sorry')
@@ -99,7 +101,7 @@ dataStorageConstructorPrototype.toggleTodosLocalStorage = function(id) {
 };
 
 dataStorageConstructorPrototype.deleteTodosLocalStorage = function(id) {
-    var structure = this.getLocalStorage("todos");
+    var structure = this.getLocalStorage(LocalStorageKey);
 
     structure.todosArray = structure.todosArray.filter(function (todosItem) {
         if (todosItem.id == id) {
@@ -110,7 +112,7 @@ dataStorageConstructorPrototype.deleteTodosLocalStorage = function(id) {
     });
 
     try {
-        localStorage.setItem("todos", JSON.stringify(structure));
+        localStorage.setItem(LocalStorageKey, JSON.stringify(structure));
     } catch (e) {
         if (e == QUOTA_EXCEEDED_ERR) {
             alert('Sorry')
@@ -123,7 +125,7 @@ dataStorageConstructorPrototype.deleteTodosLocalStorage = function(id) {
 dataStorageConstructorPrototype.deleteAllCompletedTodosLocalStorage
     = function() {
 
-    var structure = this.getLocalStorage("todos");
+    var structure = this.getLocalStorage(LocalStorageKey);
 
     structure.todosArray = structure.todosArray.filter(function (todosItem) {
         if (todosItem.completed) {
@@ -134,7 +136,7 @@ dataStorageConstructorPrototype.deleteAllCompletedTodosLocalStorage
     });
 
     try {
-        localStorage.setItem("todos", JSON.stringify(structure));
+        localStorage.setItem(LocalStorageKey, JSON.stringify(structure));
     } catch (e) {
         if (e == QUOTA_EXCEEDED_ERR) {
             alert('Sorry')
