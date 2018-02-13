@@ -2,9 +2,9 @@ function TodosCounterConstructor() {
 }
 
 TodosCounterConstructor.prototype.getNumOfActiveItems = function(todosArray) {
-    let num = 0;
+    var num = 0, i;
 
-    for (let i = 0; i < todosArray.length; i++) {
+    for (i = 0; i < todosArray.length; i++) {
         if (!todosArray[i].completed) {
             num++;
         }

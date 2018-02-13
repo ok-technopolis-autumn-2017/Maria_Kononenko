@@ -1,6 +1,6 @@
 var TodosItem = require('./TodosItem');
-var Observable = require('../../utils/observer/Observable');
-var ActionsTypes = require('../../constants/ActionsTypes');
+var EventBus = require('../../utils/EventBus');
+var EventsTypes = require('../../constants/EventsTypes');
 
 var TODOS_LIST = ".todos-list";
 
@@ -44,21 +44,19 @@ var todosListConstructorPrototype = TodosListConstructor.prototype;
 
 todosListConstructorPrototype.todosList = document.querySelector(TODOS_LIST);
 
-todosListConstructorPrototype.onChange = new Observable();
+todosListConstructorPrototype.bus = EventBus;
 
 todosListConstructorPrototype.handlerClick = function (event) {
     switch (event.target.className) {
         case TODOS_CHECKBOX_CLASS_NAME[0]:
         case TODOS_CHECKBOX_CLASS_NAME[1]: {
-            todosListConstructorPrototype.onChange.deliver({
-                "type": ActionsTypes.TOGGLE_TODOS,
+            todosListConstructorPrototype.bus.emit(EventsTypes.TOGGLE_TODOS, {
                 "id": event.target.parentNode.parentNode.id
             })
         } break;
 
         case TODOS_DELETE_BUTTON_CLASS_NAME: {
-            todosListConstructorPrototype.onChange.deliver({
-                "type": ActionsTypes.DELETE_TODOS,
+            todosListConstructorPrototype.bus.emit(EventsTypes.DELETE_TODOS, {
                 "id": event.target.parentNode.parentNode.id
             })
         } break;

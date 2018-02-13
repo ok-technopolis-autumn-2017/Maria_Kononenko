@@ -1,8 +1,8 @@
-var Observable = require('../../utils/observer/Observable');
-var ActionsTypes = require('../../constants/ActionsTypes');
+var EventBus = require('../../utils/EventBus');
+var EventsTypes = require('../../constants/EventsTypes');
 var FilterTypes = require('../../constants/FilterTypes');
 
-var TODOS_FILTERS_CLASS = ".todos-filters"
+var TODOS_FILTERS_CLASS = ".todos-filters";
 
 function TodosFiltersConstructor() {
     this.todosDelButton.addEventListener('click', this.handlerClick);
@@ -13,7 +13,7 @@ var todosFiltersConstructorPrototype = TodosFiltersConstructor.prototype;
 todosFiltersConstructorPrototype.todosDelButton =
     document.querySelector(TODOS_FILTERS_CLASS);
 
-todosFiltersConstructorPrototype.onChange = new Observable();
+todosFiltersConstructorPrototype.bus = EventBus;
 
 todosFiltersConstructorPrototype.setFocus = function (
     currentFilter, choosenFilter, type) {
@@ -79,10 +79,12 @@ todosFiltersConstructorPrototype.handlerClick = function (event) {
         event.target.className.localeCompare(
             FilterTypes.FILTER_ALL) == 0) {
 
-        todosFiltersConstructorPrototype.onChange.deliver({
-            "type": ActionsTypes.SET_VISIBILITY_FILTER,
-            "filter": event.target.className
-        });
+        todosFiltersConstructorPrototype.bus.emit(
+            EventsTypes.SET_VISIBILITY_FILTER,
+            {
+                "filter": event.target.className
+            }
+        );
 
     }
 };

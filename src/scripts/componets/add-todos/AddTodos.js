@@ -1,5 +1,5 @@
-var Observable = require('../../utils/observer/Observable');
-var ActionsTypes = require('../../constants/ActionsTypes');
+var EventBus = require('../../utils/EventBus');
+var EventsTypes = require('../../constants/EventsTypes');
 
 var TODOS_ADD_INPUT = ".todos-add_new-item";
 var TODOS_MAKE_ALL_COMPLETED_BUTTON = ".todos-add_select-all";
@@ -18,7 +18,7 @@ addTodosConstructorPrototype.todosAddInput = document
 addTodosConstructorPrototype.todosDelButton = document
     .querySelector(TODOS_MAKE_ALL_COMPLETED_BUTTON);
 
-addTodosConstructorPrototype.onChange = new Observable();
+addTodosConstructorPrototype.bus = EventBus;
 
 addTodosConstructorPrototype.setVisibility = function (numTodoItems) {
     if (numTodoItems == 0) {
@@ -30,19 +30,18 @@ addTodosConstructorPrototype.setVisibility = function (numTodoItems) {
 
 addTodosConstructorPrototype.handlerKeyPress = function (event) {
     if (event.keyCode == ENTER_KEY_CODE) {
-        addTodosConstructorPrototype.onChange.deliver({
-            "type": ActionsTypes.ADD_TODOS,
+        addTodosConstructorPrototype.bus.emit(EventsTypes.ADD_TODOS, {
             "id": new Date().getTime(),
             "text": this.value
         });
+
         this.value = '';
     }
 };
 
 addTodosConstructorPrototype.handlerClick = function (event) {
-    addTodosConstructorPrototype.onChange.deliver({
-        "type": ActionsTypes.MAKE_ALL_COMPLETED_TODOS
-    });
+    addTodosConstructorPrototype.bus.emit(
+        EventsTypes.MAKE_ALL_COMPLETED_TODOS, null);
 };
 
 module.exports = new AddTodosConstructor();

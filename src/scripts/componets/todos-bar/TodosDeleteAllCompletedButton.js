@@ -1,6 +1,5 @@
-var Observable = require('../../utils/observer/Observable');
-var ActionsTypes = require('../../constants/ActionsTypes');
-
+var EventBus = require('../../utils/EventBus');
+var EventsTypes = require('../../constants/EventsTypes');
 var TODOS_DELETE_ALL_COMPLETED_BUTTON = "todos-actions-bar_delete-done";
 
 function TodosDeleteAllCompletedConstructor() {
@@ -13,14 +12,15 @@ var todosDeleteAllCompletedConstructorPrototype =
 todosDeleteAllCompletedConstructorPrototype.todosDelButton =
     document.getElementsByClassName(TODOS_DELETE_ALL_COMPLETED_BUTTON)[0];
 
-todosDeleteAllCompletedConstructorPrototype.onChange = new Observable();
+todosDeleteAllCompletedConstructorPrototype.bus = EventBus;
 
 todosDeleteAllCompletedConstructorPrototype.handlerClick = function (event) {
     if (event.target.className.
         localeCompare(TODOS_DELETE_ALL_COMPLETED_BUTTON) === 0) {
-        todosDeleteAllCompletedConstructorPrototype.onChange.deliver({
-            "type": ActionsTypes.DELETE_ALL_COMPLETED_TODOS,
-        });
+        todosDeleteAllCompletedConstructorPrototype.bus.emit(
+            EventsTypes.DELETE_ALL_COMPLETED_TODOS,
+            null
+        );
     }
 };
 

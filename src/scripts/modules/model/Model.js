@@ -36,6 +36,6 @@ var Model = {
         this.storage.deleteAllCompletedTodosLocalStorage();
         return this.storage.getLocalStorage(LocalStorageKey);
     }
-}
+};
 
 module.exports = Model;

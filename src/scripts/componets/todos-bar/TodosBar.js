@@ -1,5 +1,6 @@
 var TodosFilters = require('./TodosFilters');
 var TodosCounter = require('./TodosCounter');
+var TodosDeleteAllCompltedButton = require('./TodosDeleteAllCompletedButton');
 
 var TODOS_BAR = ".todos-actions-bar";
 

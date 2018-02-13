@@ -1,3 +1,3 @@
-var KEY = "VanillaJSTodos1";
+var KEY = "VanillaJSTodos96";
 
 module.exports = KEY;
