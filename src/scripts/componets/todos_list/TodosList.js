@@ -13,33 +13,6 @@ function TodosListConstructor() {
     this.todosList.addEventListener('click', this.handlerClick);
 }
 
-function deleteDeletedNodes(parent, ids) {
-    var childrens = parent.children;
-    var removeChildren = [];
-    var i, j, flag;
-
-    for (i = 0; i < childrens.length; i++) {
-        flag = true;
-        for (j = 0; j < ids.length; j++) {
-            if (childrens[i].id == ids[j]) {
-                flag = false;
-                break;
-            }
-        }
-
-        if (flag) {
-            removeChildren.push(childrens[i])
-        }
-
-        flag = true
-    }
-    
-    for (i = 0; i < removeChildren.length; i++) {
-        parent.removeChild(removeChildren[i])
-    }
-    i = null;
-}
-
 var todosListConstructorPrototype = TodosListConstructor.prototype;
 
 todosListConstructorPrototype.todosList = document.querySelector(TODOS_LIST);
@@ -50,48 +23,28 @@ todosListConstructorPrototype.handlerClick = function (event) {
     switch (event.target.className) {
         case TODOS_CHECKBOX_CLASS_NAME[0]:
         case TODOS_CHECKBOX_CLASS_NAME[1]: {
-            todosListConstructorPrototype.bus.emit(EventsTypes.TOGGLE_TODOS, {
-                "id": event.target.parentNode.parentNode.id
-            })
+            todosListConstructorPrototype.bus.emit(
+                EventsTypes.TOGGLE_TODOS,
+                event.target.parentNode.parentNode.id
+            )
         } break;
 
         case TODOS_DELETE_BUTTON_CLASS_NAME: {
-            todosListConstructorPrototype.bus.emit(EventsTypes.DELETE_TODOS, {
-                "id": event.target.parentNode.parentNode.id
-            })
+            todosListConstructorPrototype.bus.emit(
+                EventsTypes.DELETE_TODOS,
+                event.target.parentNode.parentNode.id
+            )
         } break;
     }
 };
 
 todosListConstructorPrototype.render = function (currentModel) {
-    currentModel.todosArray.forEach(function (currentItemProps, i, array) {
-        var TodosItemNode = document.getElementById(currentItemProps.id);
+    todosListConstructorPrototype.todosList.innerHTML = "";
 
-        if (TodosItemNode === null) {
-
-            var newTodosItem = TodosItem.render(currentItemProps,
-                currentModel.currentFilter);
-
-            todosListConstructorPrototype.todosList.appendChild(newTodosItem)
-
-            newTodosItem = null;
-
-
-        } else {
-
-            TodosItem.update(currentItemProps, currentModel.currentFilter,
-                TodosItemNode);
-
-        }
-    });
-
-    var curIds = currentModel.todosArray.map(function (item) {
-        return item.id;
-    });
-
-    deleteDeletedNodes(todosListConstructorPrototype.todosList, curIds);
-
-    curIds = null;
+    currentModel.todosArray.forEach(function (todoModel) {
+        todosListConstructorPrototype.todosList.appendChild(
+            TodosItem.render(todoModel, currentModel.currentFilter))
+    })
 };
 
 

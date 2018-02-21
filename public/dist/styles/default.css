@@ -98,6 +98,16 @@ header {
   border-radius: 2px;
 }
 
+.__choosen {
+  border: 2px solid #efefef;
+  border-radius: 2px;
+}
+
+.__unchoosen {
+  border: 2px solid #fff;
+  border-radius: 2px;
+}
+
 body,
 input,
 button,

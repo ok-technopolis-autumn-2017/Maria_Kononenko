@@ -1,20 +1,11 @@
-require('./modules/presenters/PresenterRegistration');
-
 var TodosContainer = require('./componets/TodosContainer');
-var model = require('./modules/model/Model');
-var FilterTypes = require('./constants/FilterTypes');
-var Presenter = require('./modules/presenters/MainPresenter');
+var TodosListModel = require('./modules/model/TodosListModel');
+var Presenter =require('./modules/presenters/Presenter');
+var c = require('./utils/createDomElement');
+var t = require('./templates/todosItem.ejs');
 
 function init() {
-    if (model.isEmpty()) {
-        model.addTodos({
-            "todosFilter": FilterTypes.FILTER_ALL
-        })
-    }
-
-    TodosContainer.render(model.getModel());
-
-    new Presenter();
+    new Presenter(new TodosContainer(), new TodosListModel());
 }
 
 document.addEventListener('DOMContentLoaded', init);

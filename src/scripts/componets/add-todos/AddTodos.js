@@ -1,5 +1,6 @@
 var EventBus = require('../../utils/EventBus');
 var EventsTypes = require('../../constants/EventsTypes');
+var TodoModel = require('../../modules/model/TodoModel');
 
 var TODOS_ADD_INPUT = ".todos-add_new-item";
 var TODOS_MAKE_ALL_COMPLETED_BUTTON = ".todos-add_select-all";
@@ -30,10 +31,10 @@ addTodosConstructorPrototype.setVisibility = function (numTodoItems) {
 
 addTodosConstructorPrototype.handlerKeyPress = function (event) {
     if (event.keyCode == ENTER_KEY_CODE) {
-        addTodosConstructorPrototype.bus.emit(EventsTypes.ADD_TODOS, {
-            "id": new Date().getTime(),
-            "text": this.value
-        });
+        addTodosConstructorPrototype.bus.emit(
+            EventsTypes.ADD_TODOS,
+            new TodoModel(new Date().getTime(), this.value, false)
+        );
 
         this.value = '';
     }

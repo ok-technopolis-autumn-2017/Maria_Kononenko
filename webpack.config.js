@@ -6,5 +6,18 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, './public/dist/scripts')
     },
-    devtool: 'source-map'
+    devtool: 'source-map',
+
+    node: {
+         fs: "empty"
+    },
+
+    module: {
+        loaders: [
+            {
+                test: /\.ejs$/,
+                loader:'ejs-compiled-loader'
+            }
+        ]
+    }
 };

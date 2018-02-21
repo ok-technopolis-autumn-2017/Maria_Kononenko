@@ -1,6 +1,6 @@
 var TodosFilters = require('./TodosFilters');
 var TodosCounter = require('./TodosCounter');
-var TodosDeleteAllCompltedButton = require('./TodosDeleteAllCompletedButton');
+var TodosDeleteAllCompletedButton = require('./TodosDeleteAllCompletedButton');
 
 var TODOS_BAR = ".todos-actions-bar";
 
@@ -17,12 +17,12 @@ todosBarConstructorPrototype.setVisibility = function (num) {
     } else {
         todosBarConstructorPrototype.todoBar.style.display = "flex"
     }
-}
+};
 
-todosBarConstructorPrototype.render = function (todosArray, currentFilter) {
-    todosBarConstructorPrototype.setVisibility(todosArray.length);
-    TodosFilters.render(currentFilter);
-    TodosCounter.render(todosArray);
+todosBarConstructorPrototype.render = function (currentModel) {
+    todosBarConstructorPrototype.setVisibility(currentModel.todosArray.length);
+    TodosCounter.render(currentModel.todosArray);
+    TodosFilters.render(currentModel.currentFilter);
 };
 
 module.exports = new TodosBarConstructor();

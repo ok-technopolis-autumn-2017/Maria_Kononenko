@@ -1,0 +1,51 @@
+<div class='<%=(todoModel.completed) ?  "todos-item __done" : "todos-item" %>'
+        style='display:<%
+            switch (currentFilter) {
+                case 'todos-filter __all': {%>
+                    <%="block"%>
+                    <%} break;%>
+
+                <%case 'todos-filter __completed':{%>
+                    <%=(todoModel.completed) ?
+                        "block" : "none"%>
+                    <%} break;%>
+
+                <%case 'todos-filter __active':{%>
+                    <%=(todoModel.completed) ?
+                        "none" : "block"%>
+                    <%} break;}%>'
+        id=<%=todoModel.id%>>
+
+    <div class='<%= (todoModel.completed) ?
+            "todos-item_done-mark-w todos-item_belonging-checkbox" :
+            "todos-item_undone-mark-w todos-item_belonging-checkbox" %>'>
+
+        <div class='<%= (todoModel.completed) ?
+                "todos-item_done-mark-icon" :
+                "todos-item_undone-mark-icon" %>'>
+        </div>
+
+        <input class='<%= (todoModel.completed) ?
+                "todos-item_done-mark" :
+                "todos-item_undone-mark"%>' aria-label='<%=(todoModel.completed) ?
+                "mark done" :
+                "mark undone"%>'
+        />
+
+    </div>
+
+    <div class="todos-item_delete-w">
+
+        <div class="todos-item_delete_icon"></div>
+
+        <button class="todos-item_delete" aria-label="delete item">
+        </button>
+
+    </div>
+
+    <div class="todos-item_name-w">
+        <textarea class="todos-item_name"><%=todoModel.text%></textarea>
+
+    </div>
+
+</div>

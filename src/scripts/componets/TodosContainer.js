@@ -10,7 +10,7 @@ TodosContainerConstructorPrototype.render = function (currentModel) {
     console.log(currentModel);
     AddTodos.setVisibility(currentModel.todosArray.length);
     TodosList.render(currentModel);
-    TodosBar.render(currentModel.todosArray, currentModel.currentFilter);
+    TodosBar.render(currentModel);
 };
 
-module.exports = new TodosContainerConstructor();
+module.exports = TodosContainerConstructor;

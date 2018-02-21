@@ -5,114 +5,64 @@ var FilterTypes = require('../../constants/FilterTypes');
 var TODOS_FILTERS_CLASS = ".todos-filters";
 
 function TodosFiltersConstructor() {
-    this.todosDelButton.addEventListener('click', this.handlerClick);
+    this.todosFilters.addEventListener('click', this.handlerClick);
 }
 
 var todosFiltersConstructorPrototype = TodosFiltersConstructor.prototype;
 
-todosFiltersConstructorPrototype.todosDelButton =
+todosFiltersConstructorPrototype.todosFilters =
     document.querySelector(TODOS_FILTERS_CLASS);
 
 todosFiltersConstructorPrototype.bus = EventBus;
 
-todosFiltersConstructorPrototype.setFocus = function (
-    currentFilter, choosenFilter, type) {
-
-    switch (choosenFilter) {
-        case FilterTypes.FILTER_ALL: {
-            if (currentFilter.localeCompare(FilterTypes.FILTER_ALL) == 0) {
-                if (type = "b") {
-                    return '2px solid #efefef'
-                } else {
-                    return '2px'
-                }
-            } else {
-                if (type = "b") {
-                    return '2px solid #fff'
-                } else {
-                    return '2px'
-                }
-            }
-        } break;
-
-        case (FilterTypes.FILTER_ACTIVE): {
-
-            if (currentFilter.localeCompare(FilterTypes.FILTER_ACTIVE) == 0) {
-                if (type = "b") {
-                    return '2px solid #efefef'
-                } else {
-                    return '2px'
-                }
-            } else {
-                if (type = "b") {
-                    return '2px solid #fff'
-                } else {
-                    return '2px'
-                }
-            }
-        } break;
-
-        case (FilterTypes.FILTER_COMPLETED): {
-            if (currentFilter.localeCompare(
-                FilterTypes.FILTER_COMPLETED) == 0) {
-                if (type = "b") {
-                    return '2px solid #efefef'
-                } else {
-                    return '2px'
-                }
-            } else {
-                if (type = "b") {
-                    return '2px solid #fff'
-                } else {
-                    return '2px'
-                }
-            }
-        } break;
-    }
-};
-
 todosFiltersConstructorPrototype.handlerClick = function (event) {
-    if (event.target.className.localeCompare(
-        FilterTypes.FILTER_COMPLETED) == 0 ||
-        event.target.className.localeCompare(
-            FilterTypes.FILTER_ACTIVE) == 0||
-        event.target.className.localeCompare(
-            FilterTypes.FILTER_ALL) == 0) {
+    if (~event.target.className.indexOf(
+            FilterTypes.FILTER_COMPLETED)) {
 
-        todosFiltersConstructorPrototype.bus.emit(
-            EventsTypes.SET_VISIBILITY_FILTER,
-            {
-                "filter": event.target.className
+                todosFiltersConstructorPrototype.bus.emit(
+                    EventsTypes.SET_VISIBILITY_FILTER,
+                    FilterTypes.FILTER_COMPLETED
+                )
+    } else {
+        if (~event.target.className.indexOf(
+                FilterTypes.FILTER_ACTIVE)) {
+
+                    todosFiltersConstructorPrototype.bus.emit(
+                        EventsTypes.SET_VISIBILITY_FILTER,
+                        FilterTypes.FILTER_ACTIVE
+                    )
+        } else {
+            if (~event.target.className.indexOf(
+                    FilterTypes.FILTER_ALL)) {
+
+                        todosFiltersConstructorPrototype.bus.emit(
+                            EventsTypes.SET_VISIBILITY_FILTER,
+                            FilterTypes.FILTER_ALL
+                        )
             }
-        );
-
+        }
     }
 };
 
 todosFiltersConstructorPrototype.render = function (currentFilter) {
-    document.getElementsByClassName(FilterTypes.FILTER_ALL)[0].style.border =
-            todosFiltersConstructorPrototype.setFocus(currentFilter,
-                FilterTypes.FILTER_ALL, "b");
-    document.getElementsByClassName(FilterTypes.FILTER_ACTIVE)[0].style.border =
-        todosFiltersConstructorPrototype.setFocus(currentFilter,
-            FilterTypes.FILTER_ACTIVE, "b");
-    document.getElementsByClassName(FilterTypes.FILTER_COMPLETED)[0]
-        .style.border =
-        todosFiltersConstructorPrototype.setFocus(currentFilter,
-            FilterTypes.FILTER_COMPLETED, "b");
-    document.getElementsByClassName(FilterTypes.FILTER_ALL)[0]
-        .style.borderRadius =
-        todosFiltersConstructorPrototype.setFocus(currentFilter,
-            FilterTypes.FILTER_ALL, "br");
-    document.getElementsByClassName(FilterTypes.FILTER_ACTIVE)[0]
-        .style.borderRadius =
-        todosFiltersConstructorPrototype.setFocus(currentFilter,
-            FilterTypes.FILTER_ACTIVE, "br");
-    document.getElementsByClassName(FilterTypes.FILTER_COMPLETED)[0]
-        .style.borderRadius =
-        todosFiltersConstructorPrototype.setFocus(currentFilter,
-            FilterTypes.FILTER_COMPLETED, "br");
+    var filters = todosFiltersConstructorPrototype.todosFilters.children;
+    var filterClasses, i;
 
+    for (i = 0; i < filters.length; i++) {
+        if (~filters[i].className.indexOf(currentFilter)) {
+            filterClasses = filters[i].className.split(' ');
+            filterClasses[filterClasses.length - 1] = "__choosen";
+            filters[i].className = filterClasses.join(' ');
+        } else {
+            filterClasses = filters[i].className.split(' ');
+            filterClasses[filterClasses.length - 1] = "__unchoosen";
+            filters[i].className = filterClasses.join(' ');
+        }
+    }
+
+    filters = null;
+    i = null;
+    filterClasses = null;
 };
 
 module.exports = new TodosFiltersConstructor();
