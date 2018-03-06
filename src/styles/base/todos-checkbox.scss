@@ -1,67 +1,79 @@
-.todos-item_done-mark-w,
-.todos-item_undone-mark-w{
-  width: 40px;
-  height: 40px;
-
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 12px;
-
-  border-radius: 4em;
-
-  position: relative;
-  opacity: 1;
+.todos-item_checkbox{
+    width: 40px;
+    height: 40px;
+    margin: 12px;
+    position: relative;
 }
 
-.todos-item_done-mark-w{
-  border: 2px solid #67c5b3;
-  opacity: 1;
-}
-
-.todos-item_undone-mark-w{
-  border: 2px solid $border-color;
-  opacity: 1;
-}
-
-    .todos-item_done-mark,
-    .todos-item_undone-mark{
-
-      position: absolute;
-      left: 25%;
-      top: 25%;
-      transform: scale(4);
-      opacity: -10;
-      background: none;
-      border: none;
-
-      cursor: pointer;
+    .todos-item_checkbox-ready-mark{
+        position: absolute;
+        margin: 0;
+        left: 35%;
+        top: 35%;
+        transform: scale(4);
+        opacity: -10;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 1;
 
     }
 
-        .todos-item_undone-mark-icon{
-          position: absolute;
-          width: 24px;
-          height: 24px;
 
-          left: 50%;
-          top: 50%;
-          margin-left: -10px;
-          margin-top: -10px;
-          opacity: 300;
+    .todos-item_checkbox-ready-mark-w{
+        content: "";
+        width: 40px;
+        height: 40px;
+
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 12px;
+        position: absolute;
+        left: -35%;
+        bottom: -35%;
+
+        border-radius: 4em;
+        opacity: 100;
+
+    }
+
+    .todos-item_checkbox-ready-mark:checked ~ .todos-item_checkbox-ready-mark-w{
+          border: 2px solid #67c5b3;
+    }
+
+    .todos-item_checkbox-ready-mark ~ .todos-item_checkbox-ready-mark-w{
+          border: 2px solid $border-color;
+    }
+
+
+
+        .todos-item_checkbox-ready-mark ~ .todos-item_checkbox-ready-mark-w > .todos-item_checkbox-ready-mark-icon{
+            content: "";
+            position: absolute;
+              width: 24px;
+              height: 24px;
+
+              left: 50%;
+              top: 50%;
+              margin-left: -10px;
+              margin-top: -10px;
+            opacity: 100;
 
         }
 
-        .todos-item_done-mark-icon{
-          position: absolute;
-          width: 24px;
-          height: 24px;
+        .todos-item_checkbox-ready-mark:checked ~ .todos-item_checkbox-ready-mark-w > .todos-item_checkbox-ready-mark-icon{
+            content: "";
+            position: absolute;
+              width: 24px;
+              height: 24px;
 
-          background: url('../../images/icons/completed.png') no-repeat 0 0;
-          left: 50%;
-          top: 50%;
+              background: url('../../images/icons/completed.png') no-repeat 0 0;
+              left: 50%;
+              top: 50%;
 
-          margin-left: -10px;
-          margin-top: -10px;
-          opacity: 300;
+              margin-left: -10px;
+              margin-top: -10px;
+            opacity: 100;
+
         }

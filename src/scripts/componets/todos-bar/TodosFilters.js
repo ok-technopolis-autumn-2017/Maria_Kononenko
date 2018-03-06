@@ -5,21 +5,20 @@ var FilterTypes = require('../../constants/FilterTypes');
 var TODOS_FILTERS_CLASS = ".todos-filters";
 
 function TodosFiltersConstructor() {
-    this.todosFilters.addEventListener('click', this.handlerClick);
+    this.bus = EventBus;
+    this.todosFilters =
+        document.querySelector(TODOS_FILTERS_CLASS);
+
+    this.todosFilters.addEventListener('click', this.handlerClick.bind(this));
 }
 
 var todosFiltersConstructorPrototype = TodosFiltersConstructor.prototype;
-
-todosFiltersConstructorPrototype.todosFilters =
-    document.querySelector(TODOS_FILTERS_CLASS);
-
-todosFiltersConstructorPrototype.bus = EventBus;
 
 todosFiltersConstructorPrototype.handlerClick = function (event) {
     if (~event.target.className.indexOf(
             FilterTypes.FILTER_COMPLETED)) {
 
-                todosFiltersConstructorPrototype.bus.emit(
+                this.bus.emit(
                     EventsTypes.SET_VISIBILITY_FILTER,
                     FilterTypes.FILTER_COMPLETED
                 )
@@ -27,7 +26,7 @@ todosFiltersConstructorPrototype.handlerClick = function (event) {
         if (~event.target.className.indexOf(
                 FilterTypes.FILTER_ACTIVE)) {
 
-                    todosFiltersConstructorPrototype.bus.emit(
+                    this.bus.emit(
                         EventsTypes.SET_VISIBILITY_FILTER,
                         FilterTypes.FILTER_ACTIVE
                     )
@@ -35,7 +34,7 @@ todosFiltersConstructorPrototype.handlerClick = function (event) {
             if (~event.target.className.indexOf(
                     FilterTypes.FILTER_ALL)) {
 
-                        todosFiltersConstructorPrototype.bus.emit(
+                        this.bus.emit(
                             EventsTypes.SET_VISIBILITY_FILTER,
                             FilterTypes.FILTER_ALL
                         )
@@ -45,7 +44,7 @@ todosFiltersConstructorPrototype.handlerClick = function (event) {
 };
 
 todosFiltersConstructorPrototype.render = function (currentFilter) {
-    var filters = todosFiltersConstructorPrototype.todosFilters.children;
+    var filters = this.todosFilters.children;
     var filterClasses, i;
 
     for (i = 0; i < filters.length; i++) {

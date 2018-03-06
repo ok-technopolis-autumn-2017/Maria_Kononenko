@@ -1,7 +1,7 @@
 function TodosCounterConstructor() {
 }
 
-TodosCounterConstructor.prototype.getNumOfActiveItems = function(todosArray) {
+TodosCounterConstructor.prototype.setActiveItemsCount = function(todosArray) {
     var num = 0, i;
 
     for (i = 0; i < todosArray.length; i++) {
@@ -15,7 +15,7 @@ TodosCounterConstructor.prototype.getNumOfActiveItems = function(todosArray) {
 
 TodosCounterConstructor.prototype.render = function (todosArray) {
     document.querySelector(".todos-actions-bar_counter-undone").innerHTML =
-        this.getNumOfActiveItems(todosArray)
+        this.setActiveItemsCount(todosArray)
 };
 
 module.exports = new TodosCounterConstructor();

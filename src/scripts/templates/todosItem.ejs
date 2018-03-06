@@ -16,21 +16,19 @@
                     <%} break;}%>'
         id=<%=todoModel.id%>>
 
-    <div class='<%= (todoModel.completed) ?
-            "todos-item_done-mark-w todos-item_belonging-checkbox" :
-            "todos-item_undone-mark-w todos-item_belonging-checkbox" %>'>
+    <div class="todos-item_checkbox todos-item_belonging-checkbox">
 
-        <div class='<%= (todoModel.completed) ?
-                "todos-item_done-mark-icon" :
-                "todos-item_undone-mark-icon" %>'>
-        </div>
-
-        <input class='<%= (todoModel.completed) ?
-                "todos-item_done-mark" :
-                "todos-item_undone-mark"%>' aria-label='<%=(todoModel.completed) ?
-                "mark done" :
-                "mark undone"%>'
+        <input class="todos-item_checkbox-ready-mark"
+               aria-label='<%=(todoModel.completed) ?
+                       "mark done" :
+                       "mark undone"%>'
+               <%=(todoModel.completed) ? checked="checked" : ""%>
+               type="checkbox"
         />
+        <div class="todos-item_checkbox-ready-mark-w">
+            <div class="todos-item_checkbox-ready-mark-icon">
+            </div>
+        </div>
 
     </div>
 

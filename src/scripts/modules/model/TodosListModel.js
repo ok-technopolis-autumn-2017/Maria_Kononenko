@@ -4,36 +4,34 @@ var EventsTypes = require('../../constants/EventsTypes');
 var EventBus = require('../../utils/EventBus');
 
 function TodosListModel() {
+    this.bus = EventBus;
+    this.storage = {
+        "todosArray": [],
+        "currentFilter": FilterTypes.FILTER_ALL
+    };
 }
 
-TodosListModelPrototype = TodosListModel.prototype;
+var todosListModelPrototype = TodosListModel.prototype;
 
-TodosListModelPrototype.bus = EventBus;
-
-TodosListModelPrototype.storage = {
-    "todosArray": [],
-    "currentFilter": FilterTypes.FILTER_ALL
+todosListModelPrototype.getModel = function () {
+    return this.storage
 };
 
-TodosListModelPrototype.getModel = function () {
-    return TodosListModelPrototype.storage
-};
+todosListModelPrototype.addTodos = function (todoModel) {
+    this.storage.todosArray.push(todoModel);
 
-TodosListModelPrototype.addTodos = function (todoModel) {
-    TodosListModelPrototype.storage.todosArray.push(todoModel);
-
-    TodosListModelPrototype.bus.emit(
+    this.bus.emit(
         EventsTypes.UPDATE_VIEW,
-        TodosListModelPrototype.getModel()
+        this.getModel()
     )
 };
 
-TodosListModelPrototype.isEmpty = function () {
-    return TodosListModelPrototype.storage.todosArray.length == 0
+todosListModelPrototype.isEmpty = function () {
+    return this.storage.todosArray.length == 0
 };
 
-TodosListModelPrototype.makeAllCompleted = function () {
-    TodosListModelPrototype.storage.todosArray = TodosListModelPrototype
+todosListModelPrototype.makeAllCompleted = function () {
+    this.storage.todosArray = this
         .storage.todosArray.map(function (currentTodoModel) {
             return new TodoModel(
                 currentTodoModel.id,
@@ -42,15 +40,14 @@ TodosListModelPrototype.makeAllCompleted = function () {
             )
         });
 
-    TodosListModelPrototype.bus.emit(
+    this.bus.emit(
         EventsTypes.UPDATE_VIEW,
-        TodosListModelPrototype.getModel()
+        this.getModel()
     )
 };
 
-TodosListModelPrototype.toggleItem = function (id) {
-    TodosListModelPrototype.storage.todosArray = TodosListModelPrototype
-        .storage.todosArray
+todosListModelPrototype.toggleItem = function (id) {
+    this.storage.todosArray = this.storage.todosArray
             .map(function (currentTodoModel) {
                 if (currentTodoModel.id == id) {
                     return new TodoModel(
@@ -63,32 +60,30 @@ TodosListModelPrototype.toggleItem = function (id) {
                 return currentTodoModel
             });
 
-    TodosListModelPrototype.bus.emit(
+    this.bus.emit(
         EventsTypes.UPDATE_VIEW,
-        TodosListModelPrototype.getModel()
+        this.getModel()
     )
 };
 
-TodosListModelPrototype.deleteItem = function (id) {
-    TodosListModelPrototype.storage.todosArray = TodosListModelPrototype
-        .storage.todosArray
-            .filter(function (currentTodoModel) {
-                if (currentTodoModel.id == id) {
-                    return false
-                }
+todosListModelPrototype.deleteItem = function (id) {
+    this.storage.todosArray = this.storage.todosArray
+        .filter(function (currentTodoModel) {
+            if (currentTodoModel.id == id) {
+                return false
+            }
 
-                return true
-            });
+            return true
+        });
 
-    TodosListModelPrototype.bus.emit(
+    this.bus.emit(
         EventsTypes.UPDATE_VIEW,
-        TodosListModelPrototype.getModel()
+        this.getModel()
     )
 };
 
-TodosListModelPrototype.deleteAllCompletedItems = function () {
-    TodosListModelPrototype.storage.todosArray = TodosListModelPrototype
-        .storage.todosArray
+todosListModelPrototype.deleteAllCompletedItems = function () {
+    this.storage.todosArray = this.storage.todosArray
             .filter(function (currentTodoModel) {
                 if (currentTodoModel.completed) {
                     return false
@@ -97,19 +92,18 @@ TodosListModelPrototype.deleteAllCompletedItems = function () {
                 return true
             });
 
-    TodosListModelPrototype.bus.emit(
+    this.bus.emit(
         EventsTypes.UPDATE_VIEW,
-        TodosListModelPrototype.getModel()
+        this.getModel()
     )
 };
 
-TodosListModelPrototype.changeCurrentFilter = function (filter) {
-    TodosListModelPrototype.storage.currentFilter = filter;
-    TodosListModelPrototype.bus.emit(
+todosListModelPrototype.changeCurrentFilter = function (filter) {
+    this.storage.currentFilter = filter;
+    this.bus.emit(
         EventsTypes.UPDATE_VIEW,
-        TodosListModelPrototype.getModel()
+        this.getModel()
     );
 };
-
 
 module.exports = TodosListModel;

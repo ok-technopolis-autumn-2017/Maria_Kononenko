@@ -12,7 +12,8 @@
         @include clearfix();
     }
 
-    .todos-item:hover{
+    .todos-item:hover,
+    .todos-item:focus{
         background: $c-white-dark;
     }
 
@@ -73,11 +74,13 @@
                 opacity: -10;
                 }
 
-            .todos-item_delete-w:hover{
+            .todos-item_delete-w:hover,
+            .todos-item_delete-w:focus{
                 filter: brightness(0);
             }
 
-                .todos-item:hover .todos-item_delete_icon{
+                .todos-item:hover .todos-item_delete_icon,
+                .todos-item:focus .todos-item_delete_icon{
                     width: 24px;
                     height: 24px;
 

@@ -5,22 +5,21 @@ var TodosDeleteAllCompletedButton = require('./TodosDeleteAllCompletedButton');
 var TODOS_BAR = ".todos-actions-bar";
 
 function TodosBarConstructor() {
+    this.todoBar = document.querySelector(TODOS_BAR);
 }
 
 var todosBarConstructorPrototype = TodosBarConstructor.prototype;
 
-todosBarConstructorPrototype.todoBar = document.querySelector(TODOS_BAR);
-
 todosBarConstructorPrototype.setVisibility = function (num) {
     if (num == 0) {
-        todosBarConstructorPrototype.todoBar.style.display = "none"
+        this.todoBar.style.display = "none"
     } else {
-        todosBarConstructorPrototype.todoBar.style.display = "flex"
+        this.todoBar.style.display = "flex"
     }
 };
 
 todosBarConstructorPrototype.render = function (currentModel) {
-    todosBarConstructorPrototype.setVisibility(currentModel.todosArray.length);
+    this.setVisibility(currentModel.todosArray.length);
     TodosCounter.render(currentModel.todosArray);
     TodosFilters.render(currentModel.currentFilter);
 };

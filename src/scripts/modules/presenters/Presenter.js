@@ -8,15 +8,19 @@ function PresenterConstructor(view, model) {
 
     this.bus = EventBus;
 
-    this.bus.on(EventsTypes.ADD_TODOS, model.addTodos);
-    this.bus.on(EventsTypes.MAKE_ALL_COMPLETED_TODOS, model.makeAllCompleted);
-    this.bus.on(EventsTypes.UPDATE_VIEW, this.updateView);
-    this.bus.on(EventsTypes.TOGGLE_TODOS, model.toggleItem);
-    this.bus.on(EventsTypes.DELETE_TODOS, model.deleteItem);
-    this.bus.on(EventsTypes.SET_VISIBILITY_FILTER, model.changeCurrentFilter);
+    this.bus.on(EventsTypes.ADD_TODOS, model.addTodos.bind(model));
+    this.bus.on(
+        EventsTypes.MAKE_ALL_COMPLETED_TODOS,
+        model.makeAllCompleted.bind(model));
+    this.bus.on(EventsTypes.UPDATE_VIEW, this.updateView.bind(model));
+    this.bus.on(EventsTypes.TOGGLE_TODOS, model.toggleItem.bind(model));
+    this.bus.on(EventsTypes.DELETE_TODOS, model.deleteItem.bind(model));
+    this.bus.on(
+        EventsTypes.SET_VISIBILITY_FILTER,
+        model.changeCurrentFilter.bind(model));
     this.bus.on(
         EventsTypes.DELETE_ALL_COMPLETED_TODOS,
-        model.deleteAllCompletedItems
+        model.deleteAllCompletedItems.bind(model)
     )
 }
 
