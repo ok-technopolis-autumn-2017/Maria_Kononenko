@@ -221,14 +221,6 @@ var template = __webpack_require__(3);
 var add = __webpack_require__(4);
 
 function init() {
-    /*document.querySelector('.todos-list').appendChild(add(template({
-        "todoModel": {
-            "id": 1,
-            "text": "maha",
-            "completed": true
-        },
-        "currentFilter": 'todos-filter __all'
-    })))*/
     new Presenter(new TodosContainer(), new TodosListModel());
 }
 
